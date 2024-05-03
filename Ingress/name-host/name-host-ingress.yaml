@@ -1,20 +1,35 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: host-ingress
 spec:
   rules:
-  - host: "test.com"
+  - host: "k8sdemo.prasunguchhait.com"
     http:
       paths:
-      - path: /test
+      - path: /svc1
+        pathType: Prefix
         backend:
-          serviceName: web
-          servicePort: 8080
-  - host: "abc.com"
+          service:
+            name: web
+            port:
+              number: 8080
+      - path: /svc2
+        pathType: Prefix
+        backend:
+          service:
+            name: web2
+            port:
+              number: 8080
+  - host: "foo.com"
     http:
       paths:
-      - path: /abc
+      - path: /demopath
+        pathType: Prefix
         backend:
-          serviceName: web2
-          servicePort: 8080
+          service:
+            name: web2
+            port:
+              number: 8080
+
+      
